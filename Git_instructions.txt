@@ -1,0 +1,13 @@
+General Git instructions for this project.
+
+1. All commit messages should be in presents tense, like commands to the computer.
+    Example: 
+{   
+    RIGHT TENSE
+    "Create project" 
+    
+    WRONG TENSE
+    "Creating a project" or "Project created"
+}
+
+2.
