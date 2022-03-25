@@ -1,6 +1,7 @@
 General Git instructions for this project.
 
-1. All commit messages should be in presents tense, like commands to the computer.
+1.  All commit messages should be in presents tense, like commands to the computer.
+
     Example: 
 {   
     RIGHT TENSE
@@ -10,7 +11,31 @@ General Git instructions for this project.
     "Creating a project" or "Project created"
 }
 
-2. You can look up from gitignore.io what's recomenned to add to .gitignore file depending of the type of 
+2.  You can look up from gitignore.io what's recomenned to add to .gitignore file depending of the type of 
     project you're working on. Simply search and copy paste all recomenned to the .gitignore file.
 
+    Exampe:
+{
+    Searh: react                Copy paste all below to the .gitignore 
 
+    ### react ###
+    .DS_*
+    *.log
+    logs
+    **/*.backup.*
+    **/*.back.*
+
+    node_modules
+    bower_components
+
+    *.sublime*
+
+    psd
+    thumb
+    sketch
+}
+
+    All thigs added are files etc.. which we don't wish Git to keep track on. Hence these wont show up
+    in our git status when we do new commits and there for commands like git add . are usable. 
+
+3.  
