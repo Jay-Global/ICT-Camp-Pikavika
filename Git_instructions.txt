@@ -10,4 +10,7 @@ General Git instructions for this project.
     "Creating a project" or "Project created"
 }
 
-2.
+2. You can look up from gitignore.io what's recomenned to add to .gitignore file depending of the type of 
+    project you're working on. Simply search and copy paste all recomenned to the .gitignore file.
+
+
