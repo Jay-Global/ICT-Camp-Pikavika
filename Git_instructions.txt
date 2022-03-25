@@ -58,4 +58,9 @@ General Git instructions for this project.
         no changes added to commit (use "git add" and/or "git commit -a")
     }
 
-4.
+4.  PROJECT GIT WORKFLOW
+
+    main branch will be a final product and to be updated when some working and desired progress has been 
+    achieved. develop branch will be primary workspace where most of the work will be done. From develop branch
+    should other branches like testin, bug fix etc.. be created and possible release branch can be done to act 
+    as a safe guard between main branch and develop branch. 
