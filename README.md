@@ -23,4 +23,4 @@ I kindly ask to all contributors to make all new changes and features to a `new 
 If you can, please make sure code fully works before sending the PR, as that will help speed up the process.
 
 ## License
-2048 is licensed under the [MIT license.](https://github.com/Jay-Global/ICT-Camp-Pikavika/blob/main/License.txt)
+PIKAVIKA is licensed under the [MIT license.](https://github.com/Jay-Global/ICT-Camp-Pikavika/blob/main/License.txt)
