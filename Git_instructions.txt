@@ -2,40 +2,65 @@ General Git instructions for this project.
 
 1.  All commit messages should be in presents tense, like commands to the computer.
 
-    Example: 
-{   
-    RIGHT TENSE
-    "Create project" 
+        Example: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    {   
+        RIGHT TENSE
+        "Create project" 
     
-    WRONG TENSE
-    "Creating a project" or "Project created"
-}
+        WRONG TENSE
+        "Creating a project" or "Project created"
+    }
 
 2.  You can look up from gitignore.io what's recomenned to add to .gitignore file depending of the type of 
     project you're working on. Simply search and copy paste all recomenned to the .gitignore file.
 
-    Exampe:
-{
-    Searh: react                Copy paste all below to the .gitignore 
+        Example: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    {
+        Searh: react                Copy paste all below to the .gitignore 
 
-    ### react ###
-    .DS_*
-    *.log
-    logs
-    **/*.backup.*
-    **/*.back.*
+        ### react ###
+        .DS_*
+        *.log
+        logs
+        **/*.backup.*
+        **/*.back.*
 
-    node_modules
-    bower_components
+        node_modules
+        bower_components
 
-    *.sublime*
+        *.sublime*
 
-    psd
-    thumb
-    sketch
-}
+        psd
+        thumb
+        sketch
+    }
 
     All thigs added are files etc.. which we don't wish Git to keep track on. Hence these wont show up
     in our git status when we do new commits and there for commands like git add . are usable. 
 
-3.  
+3.  IMPORTANT ABOUT BRANCHING
+
+    Always before commiting new changes make sure you're in a right branch. Not being careful with this will 
+    SERIOUSLY FUCK THINGS UP!! (for now....)
+
+        Example: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
+
+    {
+        always run git status before commiting to ensure the current branch location.
+
+        Juusos-MBP:pikavika MacBookProJay$ git status
+        On branch gitinfo
+        Changes not staged for commit:
+        (use "git add <file>..." to update what will be committed)
+        (use "git restore <file>..." to discard changes in working directory)
+	    modified:   Git_instructions.txt
+
+        no changes added to commit (use "git add" and/or "git commit -a")
+    }
+
+4.  PROJECT GIT WORKFLOW
+
+    main branch will be a final product and to be updated when some working and desired progress has been 
+    achieved. develop branch will be primary workspace where most of the work will be done. From develop branch
+    should other branches like testin, bug fix etc.. be created and possible release branch can be done to act 
+    as a safe guard between main branch and develop branch. 
