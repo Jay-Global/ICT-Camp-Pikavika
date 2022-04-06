@@ -24,9 +24,9 @@
         <p><strong>Osoite</strong></p>
         <p id="current-latitude"></p>
         <p id="current-longitude"></p>
-        <input type="text" id="address" />
+        <input type="text" id="address-input" />
         <p><strong>Vikailmoituksen syy</strong></p>
-        <input type="text" id="aboutDefect" />
+        <input type="text" id="about-defect" />
         <p>
           <strong>Sähköposti</strong> (Mikäli haluat sinuun otettavan yhteyttä)
         </p>
@@ -63,11 +63,17 @@
 
     <div id="map"></div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script src="db.js"></script>
+
     <!-- Change api key to "YOUR_KEY" -->
     <script src="script.js"></script>
     <script
       async
-      src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=initMap"
+      src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
     ></script>
   </body>
 </html>
