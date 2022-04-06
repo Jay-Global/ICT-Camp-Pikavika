@@ -1,0 +1,24 @@
+<button type="button" id="button-open-form">
+<button type="button" id="button-open-help">
+<button type="button" id="button-send">
+<button type="button" class="button-modal-close">
+
+div id="modal-form"
+div id="modal-thank-you"
+div id="modal-help"
+
+
+var modalForm
+var modalThankYou
+var modalHelp
+
+
+var buttonOpenForm
+var buttonCloseForm
+
+var buttonSend
+
+var buttonCloseThankYou
+
+var buttonOpenHelp
+var buttonCloseHelp
