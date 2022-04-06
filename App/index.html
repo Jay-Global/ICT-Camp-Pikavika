@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PikaVika</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <h1>PIKAVIKA</h1>
+      <button type="button" id="button-open-form">Tee vikailmoitus</button>
+      <button type="button" id="button-open-help">Ohje</button>
+    </header>
+
+    <!-- The form -->
+    <div id="modal-form" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Tee vikailmoitus</h3>
+          <button type="button" class="button-modal-close">&times;</button>
+        </div>
+        <p><strong>Osoite</strong></p>
+        <p id="current-latitude"></p>
+        <p id="current-longitude"></p>
+        <input type="text" id="address-input" />
+        <p><strong>Vikailmoituksen syy</strong></p>
+        <input type="text" id="about-defect" />
+        <p>
+          <strong>Sähköposti</strong> (Mikäli haluat sinuun otettavan yhteyttä)
+        </p>
+        <input type="text" id="email" />
+        <div>
+          <button type="button" id="button-send">Lähetä</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thank you for your report window -->
+    <div id="modal-thank-you" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Kiitos yhteydenotostasi!</h3>
+          <button type="button" class="button-modal-close">&times;</button>
+        </div>
+        <p>Olemme sinuun yhteydessä tarpeen mukaan.</p>
+        <p>Saat sähköpostiisi vahvistusviestin vikailmoituksestasi</p>
+      </div>
+    </div>
+
+    <!-- Help window -->
+    <div id="modal-help" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Ohje</h3>
+          <button type="button" class="button-modal-close">&times;</button>
+        </div>
+        <p>Täytä lomake</p>
+        <p>Klikkaa "lähetä"</p>
+      </div>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script src="db.js"></script>
+
+    <!-- Change api key to "YOUR_KEY" -->
+    <script src="script.js"></script>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
+    ></script>
+  </body>
+</html>
