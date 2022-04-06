@@ -11,20 +11,20 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-let name, value, lat, long;
+let address, value, lat, long;
 
-document.getElementById("lisaaVika").onclick = () => {
+document.getElementById("button-send").onclick = () => {
   address = document.getElementById("address-input").value;
-  value = document.getElementById("about-defect").value;
+  value = document.getElementById("defect-input").value;
   lat = document.getElementById("current-latitude").value;
   long = document.getElementById("current-longitude").value;
 
   firebase
     .database()
-    .ref("viat/" + name)
+    .ref("viat/" + address)
     .set({
-      Nimi: name,
-      Arvo: value,
+      Osoite: address,
+      Vika: value,
       Lat: lat,
       Long: long,
     });

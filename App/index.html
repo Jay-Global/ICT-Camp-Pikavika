@@ -24,13 +24,19 @@
         <p><strong>Osoite</strong></p>
         <p id="current-latitude"></p>
         <p id="current-longitude"></p>
-        <input type="text" id="address-input" />
+        <input
+          type="text"
+          id="address-input"
+          minlength="1"
+          maxlength="30"
+          required
+        />
         <p><strong>Vikailmoituksen syy</strong></p>
-        <input type="text" id="about-defect" />
+        <input type="text" id="defect-input" />
         <p>
           <strong>Sähköposti</strong> (Mikäli haluat sinuun otettavan yhteyttä)
         </p>
-        <input type="text" id="email" />
+        <input type="text" id="email-input" />
         <div>
           <button type="button" id="button-send">Lähetä</button>
         </div>
@@ -73,7 +79,7 @@
     <script src="script.js"></script>
     <script
       async
-      src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
+      src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=initMap"
     ></script>
   </body>
 </html>

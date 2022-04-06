@@ -35,6 +35,8 @@ var buttonCloseForm = document.getElementsByClassName("button-modal-close")[0];
 
 // When the user clicks on the button, open the form in a pop up window
 buttonOpenForm.onclick = function () {
+  currentLatitude.textContent = "";
+  currentLongitude.textContent = "";
   modalForm.style.display = "block";
 };
 
