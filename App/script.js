@@ -1,5 +1,12 @@
+const currentLatitude = document.getElementById("current-latitude");
+const currentLongitude = document.getElementById("current-longitude");
+//let userLatlng = { lat: 61.494, lng: 23.776 };
+
+let currentLatLng;
+let map;
+
 function initMap() {
-  const map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 61.494, lng: 23.776 },
     zoom: 14,
     //mapId: "MAP_ID"
@@ -9,7 +16,10 @@ function initMap() {
   });
 
   // When the user clicks (anywhere) on the map, open the form in a pop up window
-  map.addListener("click", () => {
+  map.addListener("click", (e) => {
+    currentLatLng = e.latLng;
+    currentLatitude.textContent = currentLatLng.lat();
+    currentLongitude.textContent = currentLatLng.lng();
     modalForm.style.display = "block";
   });
 }
@@ -47,6 +57,7 @@ var buttonCloseThankYou =
 buttonSend.onclick = function () {
   modalForm.style.display = "none";
   modalThankYou.style.display = "block";
+  placeMarkerAndPanTo(currentLatLng, map);
 };
 
 // When the user clicks on (x), close the pop up window
@@ -68,7 +79,7 @@ buttonOpenHelp.onclick = function () {
   modalHelp.style.display = "block";
 };
 
-// When the user clicks on <span> (x), close the pop up window
+// When the user clicks on (x), close the pop up window
 buttonCloseHelp.onclick = function () {
   modalHelp.style.display = "none";
 };
@@ -77,13 +88,13 @@ buttonCloseHelp.onclick = function () {
       placeMarkerAndPanTo(e.latLng, map);
     }); */
 
-/* function placeMarkerAndPanTo(latLng, map) {
-    new google.maps.Marker({
-      position: latLng,
-      map: map,
-    });
-    map.panTo(latLng);
-  } */
+function placeMarkerAndPanTo(latLng, map) {
+  new google.maps.Marker({
+    position: latLng,
+    map: map,
+  });
+  map.panTo(latLng);
+}
 
 /* Add a marker
   new google.maps.Marker({
