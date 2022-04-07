@@ -11,15 +11,15 @@ function initMap() {
     zoom: 14,
     //mapId: "MAP_ID"
     mapTypeControl: false,
-    fullscreenControl: false,
+    fullscreenControl: true, //changed for testing purposes
     streetViewControl: false,
   });
 
   // When the user clicks (anywhere) on the map, open the form in a pop up window
   map.addListener("click", (e) => {
     currentLatLng = e.latLng;
-    currentLatitude.textContent = currentLatLng.lat();
-    currentLongitude.textContent = currentLatLng.lng();
+    // currentLatitude.textContent = currentLatLng.lat(); //add this for coordinate listening
+    // currentLongitude.textContent = currentLatLng.lng(); //add this for coordinate listening
     modalForm.style.display = "block";
   });
 }

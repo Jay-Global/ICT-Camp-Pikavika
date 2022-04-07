@@ -11,22 +11,22 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-let lat, long, address, value, email;
+let address, value, email; //Add lat, long for coordinates
 
 function sendData() {
   document.getElementById("button-send").onclick = () => {
-    this.lat = document.getElementById("current-latitude").value;
-    this.long = document.getElementById("current-longitude").value;
-    this.address = document.getElementById("address-input").value;
-    this.value = document.getElementById("defect-input").value;
-    this.email = document.getElementById("email-input").value;
+    // this.lat = document.getElementById("current-latitude").value; //add for coordinate sending
+    // this.long = document.getElementById("current-longitude").value; //add for coordinate sending
+    address = document.getElementById("address-input").value;
+    value = document.getElementById("defect-input").value;
+    email = document.getElementById("email-input").value;
 
     firebase
       .database()
       .ref("viat/" + address)
       .set({
-        Lat: lat,
-        Long: long,
+      //  Lat: lat,
+       // Long: long,
         Osoite: address,
         Vika: value,
         Sposti: email,
