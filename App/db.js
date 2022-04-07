@@ -11,21 +11,23 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-let name, value, lat, long;
+let address, about, email;
 
 document.getElementById("lisaaVika").onclick = () => {
-  address = document.getElementById("address-input").value;
-  value = document.getElementById("about-defect").value;
-  lat = document.getElementById("current-latitude").value;
-  long = document.getElementById("current-longitude").value;
+  address = document.getElementById("addressInput").value;
+  about = document.getElementById("aboutInput").value;
+  email = document.getElementById("emailInput").value;
+  //lat = document.getElementById("current-latitude").value;
+  //long = document.getElementById("current-longitude").value;
 
   firebase
     .database()
-    .ref("viat/" + name)
+    .ref("viat/" + address)
     .set({
-      Nimi: name,
-      Arvo: value,
-      Lat: lat,
-      Long: long,
+      Osoite: address,
+      Tietoa: about,
+      Sposti: email,
+     // Lat: lat,
+     // Long: long,
     });
 };
