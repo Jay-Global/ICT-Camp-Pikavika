@@ -11,21 +11,25 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-let address, value, lat, long;
+let lat, long, address, value, email;
 
-document.getElementById("button-send").onclick = () => {
-  address = document.getElementById("address-input").value;
-  value = document.getElementById("defect-input").value;
-  lat = document.getElementById("current-latitude").value;
-  long = document.getElementById("current-longitude").value;
+function sendData() {
+  document.getElementById("button-send").onclick = () => {
+    this.lat = document.getElementById("current-latitude").value;
+    this.long = document.getElementById("current-longitude").value;
+    this.address = document.getElementById("address-input").value;
+    this.value = document.getElementById("defect-input").value;
+    this.email = document.getElementById("email-input").value;
 
-  firebase
-    .database()
-    .ref("viat/" + address)
-    .set({
-      Osoite: address,
-      Vika: value,
-      Lat: lat,
-      Long: long,
-    });
-};
+    firebase
+      .database()
+      .ref("viat/" + address)
+      .set({
+        Lat: lat,
+        Long: long,
+        Osoite: address,
+        Vika: value,
+        Sposti: email,
+      });
+  };
+}

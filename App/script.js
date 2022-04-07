@@ -60,6 +60,7 @@ buttonSend.onclick = function () {
   modalForm.style.display = "none";
   modalThankYou.style.display = "block";
   placeMarkerAndPanTo(currentLatLng, map);
+  sendData();
 };
 
 // When the user clicks on (x), close the pop up window
@@ -79,12 +80,32 @@ var buttonCloseHelp = document.getElementsByClassName("button-modal-close")[2];
 // When the user clicks on the button, open the help pop up window
 buttonOpenHelp.onclick = function () {
   modalHelp.style.display = "block";
+  modalHelp.addEventListener(
+    "click",
+    function (event) {
+      if (!event.target.closest("modal-help")) {
+        modalHelp.style.display = "none";
+      }
+    },
+    false
+  );
 };
 
 // When the user clicks on (x), close the pop up window
 buttonCloseHelp.onclick = function () {
   modalHelp.style.display = "none";
 };
+
+// window.addEventListener("click", {target}) => {
+//   const popup = target.closest(.'popup');
+// }
+
+// When the user clicks anywhere outside of the pop up window, close it
+// window.onclick = function (event) {
+//   if (event.target == modal) {
+//     modalHelp.style.display = "none";
+//   }
+// };
 
 /*   map.addListener("click", (e) => {
       placeMarkerAndPanTo(e.latLng, map);
@@ -112,12 +133,4 @@ function placeMarkerAndPanTo(latLng, map) {
   //});
   
   //console.log(mouseLocation);
-
-  /* // When the user clicks anywhere outside of the pop up window, close it
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modalDefect.style.display = "none";
-  }
-};
-  
-  */
+*/
