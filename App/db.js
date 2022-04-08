@@ -27,5 +27,30 @@ document.getElementById("lisaaVika").onclick = () => {
       Arvo: value,
       Lat: lat,
       Long: long,
+    })
+    .then(() => {
+      console.log("Data tallennettu onnistuneesti!");
+    })
+    .catch((error) => {
+      console.log(error);
     });
 };
+
+function queryFirebaseData() {
+  const query = firebase.database().ref("viat").orderByKey();
+  query
+    .once("value")
+    .then(function (snapshot) {
+      snapshot.forEach(function (childSnapshot) {
+        const li = document.createElement("li");
+        const textnode = document.createTextNode(
+          childSnapshot.key + " " + JSON.stringify(childSnapshot)
+        );
+        li.appendChild(textnode);
+        document.getElementById("listaus").appendChild(li);
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
