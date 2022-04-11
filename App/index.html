@@ -1,54 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PikaVika</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <h1>PIKAVIKA</h1>
+      <button type="button" id="button-open-form">Tee vikailmoitus</button>
+      <button type="button" id="button-open-help">Ohje</button>
+    </header>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PikaVika</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-
-<body>
-  <header class="main-header">
-    <h1>PIKAVIKA</h1>
-
-    Nimi: <input id="nameInput" type="text"></input><br />
-    Vika: <input id="valueInput" type="text"></input><br />
-    Lat : <input id="latInput" type="text"></input><br />
-    Long: <input id="longInput" type="text"></input><br />
-
-    <button id="lisaaVika">Lisää vika</button>
-    <button id="naytaViat">Listaa viat</button>
-  </header>
-
-  <!-- modaalitesti -->
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Lisää vika</h3>
-        <!-- <span class="close">&times;</span> -->
-        <button class="modal-close">&times;</button>
+    <!-- The form -->
+    <div id="modal-form" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Tee vikailmoitus</h3>
+          <button type="button" class="button-modal-close">&times;</button>
+        </div>
+        <p><strong>Osoite</strong></p>
+        <input id="addressInput" type= "text" ></input><br/>
+        <p><strong>Vikailmoituksen syy</strong></p>
+        <input id = "aboutInput" type="text" ></input><br/>
+        <p><strong>Sähköposti</strong> (Mikäli haluat sinuun otettavan yhteyttä)</p>
+        <input id = "emailInput" type="text" ></input><br/>
+        <!-- <p id="currentlatitude"></p>
+        <p id="currentlongitude"></p> -->
+        <button id="lisaaVika">Lähetä</button>
+        <!-- <button type="button" id="lisaaVika">Lähetä</button> -->
+        <div>
+          
+        </div>
       </div>
-      <p>Tekstia tahan</p>
     </div>
-  </div>
 
-  <div id="map"></div>
+    <!-- Thank you for your report window -->
+    <div id="modal-thank-you" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Kiitos yhteydenotostasi!</h3>
+          <button type="button" class="button-modal-close">&times;</button>
+        </div>
+        <p>Olemme sinuun yhteydessä tarpeen mukaan.</p>
+        <p>Saat sähköpostiisi vahvistusviestin vikailmoituksestasi</p>
+      </div>
+    </div>
 
+    <!-- Help window -->
+    <div id="modal-help" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Ohje</h3>
+          <button type="button" class="button-modal-close">&times;</button>
+        </div>
+        <p>Täytä lomake</p>
+        <p>Klikkaa "lähetä"</p>
+      </div>
+    </div>
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <div id="map"></div>
 
-  <script src="db.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
+    <script src="db.js"></script>
 
-  <!--script src="script.js"></script-->
-
-  <!-- Lisää api-avain kohtaan "YOUR_KEY" -->
-  <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=initMap"></script>
-
-</body>
-
+    <!-- Change api key to "YOUR_KEY" -->
+    <script src="script.js"></script>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
+    ></script>
+  </body>
 </html>
