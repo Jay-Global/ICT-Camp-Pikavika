@@ -11,25 +11,35 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-let lat, long, address, value, email;
+// let lat, long
+let address, value, email;
 
-function sendData() {
-  document.getElementById("button-send").onclick = () => {
-    this.lat = document.getElementById("current-latitude").value;
-    this.long = document.getElementById("current-longitude").value;
-    this.address = document.getElementById("address-input").value;
-    this.value = document.getElementById("defect-input").value;
-    this.email = document.getElementById("email-input").value;
+// function sendData() {
+document.getElementById("button-send").onclick = () => {
+  // this.lat = document.getElementById("current-latitude").value;
+  // this.long = document.getElementById("current-longitude").value;
+  address = document.getElementById("address-input").value;
+  value = document.getElementById("defect-input").value;
+  email = document.getElementById("email-input").value;
 
-    firebase
-      .database()
-      .ref("viat/" + address)
-      .set({
-        Lat: lat,
-        Long: long,
-        Osoite: address,
-        Vika: value,
-        Sposti: email,
-      });
-  };
-}
+  firebase
+    .database()
+    .ref("viat/" + address)
+    .set({
+      // Lat: lat,
+      // Long: long,
+      Osoite: address,
+      Vika: value,
+      Sposti: email,
+    });
+  // .then(() => {
+  //   console.log("Data tallennettu onnistuneesti!");
+  // })
+  // .catch((error) => {
+  //   console.log(error);
+  // });
+  // };
+  modalForm.style.display = "none";
+  modalThankYou.style.display = "block";
+  placeMarkerAndPanTo(currentLatLng, map);
+};

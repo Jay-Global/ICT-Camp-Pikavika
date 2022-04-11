@@ -6,37 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PikaVika</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+    />
   </head>
   <body>
     <header class="main-header">
       <h1>PIKAVIKA</h1>
-      <button type="button" id="button-open-form">Tee vikailmoitus</button>
-      <button type="button" id="button-open-help">Ohje</button>
+      <div class="buttons">
+        <button type="button" id="button-open-help" class="button1">
+          Ohje
+        </button>
+        <button type="button" id="button-open-form" class="button1">
+          Tee vikailmoitus
+        </button>
+      </div>
     </header>
 
     <!-- The form -->
     <div id="modal-form" class="modal">
-      <div class="modal-content">
+      <!-- ent <div class="modal-content"> -->
+      <div class="modal-content-vikailmoitus">
         <div class="modal-header">
           <h3>Tee vikailmoitus</h3>
-          <button type="button" class="button-modal-close">&times;</button>
+          <button type="button" class="button-modal-close">X</button>
         </div>
         <p><strong>Osoite</strong></p>
         <p id="current-latitude"></p>
         <p id="current-longitude"></p>
         <input
           type="text"
+          class="textField"
           id="address-input"
           minlength="1"
           maxlength="50"
           required
         />
         <p><strong>Vikailmoituksen syy</strong></p>
-        <input type="text" id="defect-input" />
+        <input type="text" class="textField" id="defect-input" />
         <p>
           <strong>Sähköposti</strong> (Mikäli haluat sinuun otettavan yhteyttä)
         </p>
-        <input type="text" id="email-input" />
+        <input type="text" class="textField" id="email-input" />
         <div>
           <button type="button" id="button-send">Lähetä</button>
         </div>
@@ -45,10 +57,10 @@
 
     <!-- Thank you for your report window -->
     <div id="modal-thank-you" class="modal">
-      <div class="modal-content">
+      <div class="modal-content-vikailmoitus">
         <div class="modal-header">
           <h3>Kiitos yhteydenotostasi!</h3>
-          <button type="button" class="button-modal-close">&times;</button>
+          <button type="button" class="button-modal-close">X</button>
         </div>
         <p>Olemme sinuun yhteydessä tarpeen mukaan.</p>
         <p>Saat sähköpostiisi vahvistusviestin vikailmoituksestasi</p>
@@ -57,10 +69,10 @@
 
     <!-- Help window -->
     <div id="modal-help" class="modal">
-      <div class="modal-content">
+      <div class="modal-content-ohje">
         <div class="modal-header">
           <h3>Ohje</h3>
-          <button type="button" class="button-modal-close">&times;</button>
+          <button type="button" class="button-modal-close">X</button>
         </div>
         <p>Täytä lomake</p>
         <p>Klikkaa "lähetä"</p>
