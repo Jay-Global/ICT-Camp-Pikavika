@@ -72,6 +72,10 @@ buttonOpenForm.onclick = function () {
   modalForm.style.display = "block";
 };
 
+document.getElementById("button-open-defects").onclick = () => {
+  queryFirebaseData();
+};
+
 userAddressInput.onchange = function () {
   userAddress = document.getElementById("address-input").value;
   codeAddress(userAddress);
@@ -164,12 +168,12 @@ function placeMarkerAndPanTo(latLng, map) {
     map,
     title: "Tampere",
   });
-  
+
   //let mouseLocation;
-  
+
   //map.addListener(map, "click", function (event) {
   //  mouseLocation = event.latLng;
   //});
-  
+
   //console.log(mouseLocation);
 */
