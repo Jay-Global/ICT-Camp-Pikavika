@@ -11,6 +11,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+
 // let lat, long
 let lat, long, address, value, email;
 
@@ -37,6 +38,7 @@ document.getElementById("button-send").onclick = () => {
     })
     .catch((error) => {
       console.log(error);
+
     });
 
   modalForm.style.display = "none";
