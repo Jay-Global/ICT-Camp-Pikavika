@@ -11,23 +11,56 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-let address, about, email;
 
-document.getElementById("lisaaVika").onclick = () => {
-  address = document.getElementById("addressInput").value;
-  about = document.getElementById("aboutInput").value;
-  email = document.getElementById("emailInput").value;
-  //lat = document.getElementById("current-latitude").value;
-  //long = document.getElementById("current-longitude").value;
+// let lat, long
+let lat, long, address, value, email;
+
+// function sendData() {
+document.getElementById("button-send").onclick = () => {
+  lat = currentLatLng.lat();
+  long = currentLatLng.lng();
+  address = document.getElementById("address-input").value;
+  value = document.getElementById("defect-input").value;
+  email = document.getElementById("email-input").value;
 
   firebase
     .database()
     .ref("viat/" + address)
     .set({
+      Lat: lat,
+      Long: long,
       Osoite: address,
-      Tietoa: about,
+      Vika: value,
       Sposti: email,
-     // Lat: lat,
-     // Long: long,
+    })
+    .then(() => {
+      console.log("Data tallennettu onnistuneesti!");
+    })
+    .catch((error) => {
+      console.log(error);
+
     });
+
+  modalForm.style.display = "none";
+  modalThankYou.style.display = "block";
+  placeMarkerAndPanTo(currentLatLng, map);
 };
+
+function queryFirebaseData() {
+  const query = firebase.database().ref("viat").orderByKey();
+  query
+    .once("value")
+    .then(function (snapshot) {
+      snapshot.forEach(function (childSnapshot) {
+        const li = document.createElement("li");
+        const textnode = document.createTextNode(
+          childSnapshot.key + " " + JSON.stringify(childSnapshot)
+        );
+        li.appendChild(textnode);
+        document.getElementById("defects-list").appendChild(li);
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
