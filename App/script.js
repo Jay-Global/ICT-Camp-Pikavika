@@ -19,6 +19,8 @@ function initMap() {
     streetViewControl: false,
   });
 
+  queryFirebaseData();
+
   //Initialize geocoder
   geocoder = new google.maps.Geocoder();
 

@@ -11,7 +11,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-
 // let lat, long
 let lat, long, address, value, email;
 
@@ -38,7 +37,6 @@ document.getElementById("button-send").onclick = () => {
     })
     .catch((error) => {
       console.log(error);
-
     });
 
   modalForm.style.display = "none";
@@ -52,12 +50,16 @@ function queryFirebaseData() {
     .once("value")
     .then(function (snapshot) {
       snapshot.forEach(function (childSnapshot) {
+        const myJSON = JSON.stringify(childSnapshot);
+        const myObj = JSON.parse(myJSON);
         const li = document.createElement("li");
         const textnode = document.createTextNode(
           childSnapshot.key + " " + JSON.stringify(childSnapshot)
         );
+        console.log(childSnapshot);
         li.appendChild(textnode);
         document.getElementById("defects-list").appendChild(li);
+        placeMarkerAndPanTo({ lat: myObj.Lat, lng: myObj.Long }, map);
       });
     })
     .catch((error) => {
