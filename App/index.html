@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PikaVika</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
+</head>
+
+<body>
+  <header class="main-header">
+    <h1>PIKAVIKA</h1>
+    <div class="buttons">
+      <button type="button" id="button-open-help" class="button1">
+        Ohje
+      </button>
+      <button type="button" id="button-open-form" class="button1">
+        Tee vikailmoitus
+      </button>
+      <button type="button" id="button-open-defects" class="button1">
+        Näytä tallennetut vikailmoitukset
+      </button>
+    </div>
+    <ul id="defects-list"></ul>
+  </header>
+
+  <!-- The form -->
+  <div id="modal-form" class="modal">
+    <!-- ent <div class="modal-content"> -->
+    <div class="modal-content-vikailmoitus">
+      <div class="modal-header">
+        <h3>Tee vikailmoitus</h3>
+        <button type="button" class="button-modal-close">X</button>
+      </div>
+      <p><strong>Osoite</strong></p>
+      <p id="current-latitude"></p>
+      <p id="current-longitude"></p>
+      <input type="text" class="textField" id="address-input" minlength="1" maxlength="50" required />
+      <p><strong>Vikailmoituksen syy</strong></p>
+      <input type="text" class="textField" id="defect-input" />
+      <p>
+        <strong>Sähköposti</strong> (Mikäli haluat sinuun otettavan yhteyttä)
+      </p>
+      <input type="text" class="textField" id="email-input" />
+      <div>
+        Lisää kuva<br />
+        <input type="file" id="files" multiple /><br /><br />
+        <button id = "send"> Lähetä </button>
+      
+        </div>
+        <script>
+        var files = [];
+        document.getElementById("files").addEventListener("change", function(e) {
+          files = e.target.files;
+          for (let i = 0; i < files.length; i++) {
+            console.log(files[i]);
+          }
+        });
+        
+        document.getElementById("send").addEventListener("click", function() {
+          //checks if files are selected
+          if (files.length != 0) {
+            //Loops through all the selected files
+            for (let i = 0; i < files.length; i++) {
+              //create a storage reference
+              var storage = firebase.storage().ref(files[i].name);
+        
+              //upload file
+              var upload = storage.put(files[i]);
+        
+              //update progress bar 
+              // Toimii, mutta jos tuon poistaa niin ei. En tiiä vaan miten sais näkymään
+
+              upload.on(
+                "state_changed",
+                function progress(snapshot) {
+                  var percentage =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                  document.getElementById("progress").value = percentage;
+                },
+        
+                function error() {
+                  alert("error uploading file");
+                },
+        
+                function complete() {
+                  document.getElementById(
+                    "uploading"
+                  ).innerHTML += `${files[i].name} ="uploaded" <br />`;
+                }
+              );
+            }
+          } else {
+            alert("No file chosen");
+          }
+        });
+        
+        function getFileUrl(filename) {
+          //create a storage reference
+          var storage = firebase.storage().ref(filename);
+        
+          //get file url
+          storage
+            .getDownloadURL()
+            .then(function(url) {
+              console.log(url);
+            })
+            .catch(function(error) {
+              console.log("error encountered");
+            });
+        }
+        </script>
+        </body>
+        </html>
+      </p>
+      <div>
+        <button type="button" id="button-send">Lähetä</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thank you for your report window -->
+  <div id="modal-thank-you" class="modal">
+    <div class="modal-content-vikailmoitus">
+      <div class="modal-header">
+        <h3>Kiitos yhteydenotostasi!</h3>
+        <button type="button" class="button-modal-close">X</button>
+      </div>
+      <p>Olemme sinuun yhteydessä tarpeen mukaan.</p>
+      <p>Saat sähköpostiisi vahvistusviestin vikailmoituksestasi</p>
+    </div>
+  </div> 
+
+  <!-- Help window -->
+  <div id="modal-help" class="modal">
+    <div class="modal-content-ohje">
+      <div class="modal-header">
+        <h3>Ohje</h3>
+        <button type="button" class="button-modal-close">X</button>
+      </div>
+      <p>Täytä lomake</p>
+      <p>Klikkaa "lähetä"</p>
+    </div>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+
+  <script src="db.js"></script>
+
+  <!-- Change api key to "YOUR_KEY" -->
+  <script src="script.js"></script>
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
+</body>
+
+</html>
