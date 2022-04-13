@@ -1,11 +1,12 @@
 :root {
   --blue: #29549a;
   --lightblue: #668ec9;
+  --white: rgb(255, 255, 255);
  }
 
 .main-header {
   /*background-color: #29549a;*/
-  color: white;
+  color: var(--white);
   display: block;
 }
 
@@ -58,7 +59,7 @@ body {
   background-color: var(--lightblue);
   border: none;
   border-radius: 5px;
-  color: white;
+  color: var(--white);
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -70,7 +71,7 @@ body {
 }
 
 .button-modal-close {
-  color: white;
+  color: var(--white);
   border: var(--lightblue);
   background-color: #ffffff00;
   font-weight: 700;
@@ -92,7 +93,7 @@ body {
   box-shadow: 4px 4px 3px 0 rgba(0, 0, 0, 0.25) inset;
 }
 .button1:active {
-  background-color: white;
+  background-color: var(--white);
   color: var(--lightblue);
 }
 
@@ -102,7 +103,7 @@ body {
   left: 380px;
   background-color: var(--blue);
   border: none;
-  color: white;
+  color: var(--white);
   padding: 15px 22px 10px;
   text-align: center;
   font-style: normal;
@@ -146,7 +147,7 @@ h3 {
 
 /* Modal Content/Box OHJE */
 .modal-content-ohje {
-  background-color: white;
+  background-color: var(--white);
   position: fixed;
   bottom: 10px;
   right: 10px;
@@ -158,7 +159,7 @@ h3 {
 }
 /* Modal Content/Box VIKAILMOITUS */
 .modal-content-vikailmoitus {
-  background-color: white;
+  background-color: var(--white);
   margin: 15% auto;
   padding: 0px;
   border: 2px solid var(--blue);
@@ -192,7 +193,7 @@ h3 {
 .modal-header {
   border-bottom: 5px var(--blue);
   background-color: var(--blue);
-  color: white;
+  color: var(--white);
   display: flex;
   align-items: center;
   justify-content: space-between;
