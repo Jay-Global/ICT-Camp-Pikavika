@@ -59,7 +59,12 @@ function queryFirebaseData() {
         console.log(childSnapshot);
         li.appendChild(textnode);
         document.getElementById("defects-list").appendChild(li);
-        placeMarkerAndPanTo({ lat: myObj.Lat, lng: myObj.Long }, map);
+        // placeMarkerAndPanTo({ lat: myObj.Lat, lng: myObj.Long }, map, "testi");
+        addMarkerAndInfoWindow(
+          { lat: myObj.Lat, lng: myObj.Long },
+          map,
+          myObj.Vika
+        );
       });
     })
     .catch((error) => {

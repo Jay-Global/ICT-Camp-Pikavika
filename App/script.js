@@ -164,6 +164,29 @@ function placeMarkerAndPanTo(latLng, map) {
   map.panTo(latLng);
 }
 
+function addMarkerAndInfoWindow(latLng, map, message) {
+  var marker = new google.maps.Marker({
+    position: latLng,
+    map: map,
+  });
+  var infoWindow = new google.maps.InfoWindow({
+    content: message,
+  });
+  google.maps.event.addListener(marker, "click", function () {
+    infoWindow.open(map, marker);
+  });
+}
+
+// function addInfoWindow(marker, message) {
+//   var infoWindow = new google.maps.InfoWindow({
+//     content: message,
+//   });
+
+//   google.maps.event.addListener(marker, "click", function () {
+//     infoWindow.open(map, marker);
+//   });
+// }
+
 /* Add a marker
   new google.maps.Marker({
     position: { lat: 61.494, lng: 23.776 },
