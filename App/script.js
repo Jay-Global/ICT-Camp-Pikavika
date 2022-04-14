@@ -74,9 +74,9 @@ buttonOpenForm.onclick = function () {
   modalForm.style.display = "block";
 };
 
-document.getElementById("button-open-defects").onclick = () => {
-  queryFirebaseData();
-};
+// document.getElementById("button-open-defects").onclick = () => {
+//   queryFirebaseData();
+// };
 
 userAddressInput.onchange = function () {
   userAddress = document.getElementById("address-input").value;
@@ -105,7 +105,6 @@ buttonSend.onclick = function () {
   modalForm.style.display = "none";
   modalThankYou.style.display = "block";
   placeMarkerAndPanTo(currentLatLng, map);
-  // sendData();
 };*/
 
 // When the user clicks on (x), close the pop up window
@@ -124,10 +123,12 @@ var buttonCloseHelp = document.getElementsByClassName("button-modal-close")[2];
 
 // When the user clicks on the button, open the help pop up window
 buttonOpenHelp.onclick = function () {
+  //pop-up window open
   modalHelp.style.display = "block";
   modalHelp.addEventListener(
     "click",
     function (event) {
+      //user clicks outside window -> close
       if (!event.target.closest("modal-help")) {
         modalHelp.style.display = "none";
       }
@@ -141,21 +142,7 @@ buttonCloseHelp.onclick = function () {
   modalHelp.style.display = "none";
 };
 
-// window.addEventListener("click", {target}) => {
-//   const popup = target.closest(.'popup');
-// }
-
-// When the user clicks anywhere outside of the pop up window, close it
-// window.onclick = function (event) {
-//   if (event.target == modal) {
-//     modalHelp.style.display = "none";
-//   }
-// };
-
-/*   map.addListener("click", (e) => {
-      placeMarkerAndPanTo(e.latLng, map);
-    }); */
-
+//Create a new marker and center
 function placeMarkerAndPanTo(latLng, map) {
   new google.maps.Marker({
     position: latLng,
@@ -164,41 +151,19 @@ function placeMarkerAndPanTo(latLng, map) {
   map.panTo(latLng);
 }
 
-function addMarkerAndInfoWindow(latLng, map, message) {
+function addMarkerAndInfoWindow(latLng, markerAddress, map, message) {
+  //Create a new marker
   var marker = new google.maps.Marker({
     position: latLng,
+    title: markerAddress,
     map: map,
   });
+  //Create a info window attached to the marker
   var infoWindow = new google.maps.InfoWindow({
     content: message,
   });
+  //When user clicks the marker info window will open
   google.maps.event.addListener(marker, "click", function () {
     infoWindow.open(map, marker);
   });
 }
-
-// function addInfoWindow(marker, message) {
-//   var infoWindow = new google.maps.InfoWindow({
-//     content: message,
-//   });
-
-//   google.maps.event.addListener(marker, "click", function () {
-//     infoWindow.open(map, marker);
-//   });
-// }
-
-/* Add a marker
-  new google.maps.Marker({
-    position: { lat: 61.494, lng: 23.776 },
-    map,
-    title: "Tampere",
-  });
-
-  //let mouseLocation;
-
-  //map.addListener(map, "click", function (event) {
-  //  mouseLocation = event.latLng;
-  //});
-
-  //console.log(mouseLocation);
-*/

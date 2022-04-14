@@ -52,16 +52,18 @@ function queryFirebaseData() {
       snapshot.forEach(function (childSnapshot) {
         const myJSON = JSON.stringify(childSnapshot);
         const myObj = JSON.parse(myJSON);
-        const li = document.createElement("li");
-        const textnode = document.createTextNode(
-          childSnapshot.key + " " + JSON.stringify(childSnapshot)
-        );
-        console.log(childSnapshot);
-        li.appendChild(textnode);
-        document.getElementById("defects-list").appendChild(li);
+        // const li = document.createElement("li");
+        // const textnode = document.createTextNode(
+        //   childSnapshot.key + " " + JSON.stringify(childSnapshot)
+        // );
+        // console.log(childSnapshot);
+        // li.appendChild(textnode);
+        // document.getElementById("defects-list").appendChild(li);
         // placeMarkerAndPanTo({ lat: myObj.Lat, lng: myObj.Long }, map, "testi");
+        //Add marker and an info window for every childSnapshot
         addMarkerAndInfoWindow(
-          { lat: myObj.Lat, lng: myObj.Long },
+          { lat: parseFloat(myObj.Lat), lng: parseFloat(myObj.Long) },
+          myObj.Osoite,
           map,
           myObj.Vika
         );
