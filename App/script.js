@@ -35,7 +35,7 @@ function initMap() {
 
 //Get coordinates from the API
 function codeAddress(userAddress) {
-  geocoder.geocode({ userAddress: userAddress }, (results, status) => {
+  geocoder.geocode({ address: userAddress }, (results, status) => {
     if (status == google.maps.GeocoderStatus.OK) {
       //center the map over the result
       map.setCenter(results[0].geometry.location);
@@ -103,7 +103,7 @@ function getFileUrl(filename) {
 // };
 
 userAddressInput.onchange = function () {
-  userAddress = document.getElementById("address-input").value;
+  var userAddress = document.getElementById("address-input").value;
   codeAddress(userAddress);
 };
 
@@ -147,13 +147,14 @@ var buttonCloseHelp = document.getElementsByClassName("button-modal-close")[2];
 
 // When the user clicks on the button, open the help pop up window
 buttonOpenHelp.onclick = function () {
-  //pop-up window open
+  // Pop-up window open
   modalHelp.style.display = "block";
   modalHelp.addEventListener(
     "click",
     function (event) {
-      //user clicks outside window -> close
-      if (!event.target.closest("modal-help")) {
+      // User clicks outside window -> close
+      // "Closest" returns modal-content-ohje and all its child elements (e.g. modal-header)
+      if (!event.target.closest(".modal-content-ohje")) {
         modalHelp.style.display = "none";
       }
     },
