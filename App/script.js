@@ -1,6 +1,7 @@
 const currentLatitude = document.getElementById("current-latitude");
 const currentLongitude = document.getElementById("current-longitude");
 const currentAddressInput = document.getElementById("address-input");
+const currentDefectInput = document.getElementById("defect-input");
 
 let userAddress;
 
@@ -31,6 +32,7 @@ function initMap() {
     currentLatitude.textContent = currentLatLng.lat();
     currentLongitude.textContent = currentLatLng.lng();
     getAddress(currentLatLng);
+    currentDefectInput.value = null;
     modalForm.style.display = "block";
   });
 }
@@ -90,6 +92,10 @@ var userAddressInput = document.getElementById("address-input");
 buttonOpenForm.onclick = function () {
   // currentLatitude.textContent = "";
   // currentLongitude.textContent = "";
+  currentLatitude.textContent = "";
+  currentLongitude.textContent = "";
+  currentAddressInput.value = null;
+  currentDefectInput.value = null;
   modalForm.style.display = "block";
 };
 
@@ -121,8 +127,11 @@ function getFileUrl(filename) {
 //   queryFirebaseData();
 // };
 
+//When the address input field changes
 userAddressInput.onchange = function () {
-  userAddress = document.getElementById("address-input").value;
+  //Get the value from the user in "address-input"
+  userAddress = currentAddressInput.value;
+  //Use codeAddrsss function to get the coordinates
   codeAddress(userAddress);
 };
 
@@ -235,3 +244,17 @@ function addMarkerAndInfoWindow(latLng, markerAddress, map, message) {
     infoWindow.open(map, marker);
   });
 }
+
+// //Check that all input fields are filled
+// function checkAllRequiredFields() {
+//   let addressField = currentAddressInput.value;
+//   let defectField = currentDefectInput.value;
+//   if (
+//     (addressField == null || addressField == "",
+//     defectField == null || defectField == "")
+//   ) {
+//     return false;
+//   } else {
+//     return true;
+//   }
+// }

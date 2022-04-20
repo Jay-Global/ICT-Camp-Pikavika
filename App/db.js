@@ -16,68 +16,92 @@ let lat, long, address, value, email;
 
 // function sendData() {
 document.getElementById("button-send").onclick = () => {
-  lat = currentLatLng.lat();
-  long = currentLatLng.lng();
-  address = document.getElementById("address-input").value;
-  value = document.getElementById("defect-input").value;
-  email = document.getElementById("email-input").value;
+  //Check that all required fields are filled
+  //By default: all required fields are filled
+  let requiredFieldsEmpty = false;
+  //By default: alert message is empty
+  let alertMessage = "";
+  //Check if address input field is empty
+  if (currentAddressInput.value == null || currentAddressInput.value == "") {
+    requiredFieldsEmpty = true;
+    alertMessage = alertMessage + " Osoite puuttuu! ";
+  }
+  //Check if defect input field is empty
+  if (currentDefectInput.value == null || currentDefectInput.value == "") {
+    requiredFieldsEmpty = true;
+    alertMessage = alertMessage + " Vikailmoituksen syy puuttuu! ";
+  }
+  //Alert message is shown if any required field is empty
+  if (requiredFieldsEmpty == true) {
+    alert(alertMessage);
+  }
 
-  firebase
-    .database()
-    .ref("viat/" + address)
-    .set({
-      Lat: lat,
-      Long: long,
-      Osoite: address,
-      Vika: value,
-      Sposti: email,
-    })
-    .then(() => {
-      console.log("Data tallennettu onnistuneesti!");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  if (requiredFieldsEmpty == false) {
+    lat = currentLatLng.lat();
+    long = currentLatLng.lng();
+    address = document.getElementById("address-input").value;
+    value = document.getElementById("defect-input").value;
+    email = document.getElementById("email-input").value;
 
-  modalForm.style.display = "none";
-  modalThankYou.style.display = "block";
-  addMarkerAndPanTo(currentLatLng, address, map, value);
+    firebase
+      .database()
+      .ref("viat/" + address)
+      .set({
+        Lat: lat,
+        Long: long,
+        Osoite: address,
+        Vika: value,
+        Sposti: email,
+      })
+      .then(() => {
+        console.log("Data tallennettu onnistuneesti!");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-  //Send pictures
-  //checks if files are selected
-  if (files.length != 0) {
-    //Loops through all the selected files
-    for (let i = 0; i < files.length; i++) {
-      //create a storage reference
-      var storage = firebase.storage().ref(files[i].name);
+    modalForm.style.display = "none";
+    modalThankYou.style.display = "block";
+    addMarkerAndPanTo(currentLatLng, address, map, value);
 
-      //upload file
-      var upload = storage.put(files[i]);
+    //Send pictures
+    //checks if files are selected
+    if (files.length != 0) {
+      //Loops through all the selected files
+      for (let i = 0; i < files.length; i++) {
+        //create a storage reference
+        var storage = firebase.storage().ref(files[i].name);
 
-      //update progress bar
-      // Toimii, mutta jos tuon poistaa niin ei. En tiiä vaan miten sais näkymään
+        //upload file
+        var upload = storage.put(files[i]);
 
-      // upload.on(
-      //   "state_changed",
-      //   function progress(snapshot) {
-      //     var percentage =
-      //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      //     document.getElementById("progress").value = percentage;
-      //   },
+        //update progress bar
+        // Toimii, mutta jos tuon poistaa niin ei. En tiiä vaan miten sais näkymään
 
-      //   function error() {
-      //     alert("error uploading file");
-      //   },
+        // upload.on(
+        //   "state_changed",
+        //   function progress(snapshot) {
+        //     var percentage =
+        //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        //     document.getElementById("progress").value = percentage;
+        //   },
 
-      //   function complete() {
-      //     document.getElementById(
-      //       "uploading"
-      //     ).innerHTML += `${files[i].name} ="uploaded" <br />`;
-      //   }
-      // );
+        //   function error() {
+        //     alert("error uploading file");
+        //   },
+
+        //   function complete() {
+        //     document.getElementById(
+        //       "uploading"
+        //     ).innerHTML += `${files[i].name} ="uploaded" <br />`;
+        //   }
+        // );
+      }
     }
-  } else {
-    alert("No file chosen");
+
+    // else {
+    //   alert("Ei lisättä kuvaa");
+    // }
   }
 };
 
