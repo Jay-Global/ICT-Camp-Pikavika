@@ -32,6 +32,9 @@ function initMap() {
     modalForm.style.display = "block";
   });
 }
+// // var coordsLat;
+// // var coordsLng;
+// let coords = [];
 
 //Get coordinates from the API
 function codeAddress(userAddress) {
@@ -41,11 +44,13 @@ function codeAddress(userAddress) {
       map.setCenter(results[0].geometry.location);
       //Display response in the console
       console.log(results);
-      //place a marker at the location
-      // var marker = new google.maps.Marker({
-      //   map: map,
-      //   position: results[0].geometry.location,
-      // });
+      //Get latitude and longitude from the results
+      currentLatitude.textContent = results[0].geometry.location.lat();
+      currentLongitude.textContent = results[0].geometry.location.lng();
+      currentLatLng = new google.maps.LatLng(
+        results[0].geometry.location.lat(),
+        results[0].geometry.location.lng()
+      );
     } else {
       alert("Geocode error: " + status);
     }
@@ -64,8 +69,9 @@ var buttonOpenForm = document.getElementById("button-open-form");
 // Get the button that closes the pop up window
 var buttonCloseForm = document.getElementsByClassName("button-modal-close")[0];
 
-//Get the address input field
+//Get the address input and defect input fields
 var userAddressInput = document.getElementById("address-input");
+// var userDefectInput = document.getElementsById("defect-input");
 
 // When the user clicks on the button, open the form in a pop up window
 buttonOpenForm.onclick = function () {
@@ -103,9 +109,13 @@ function getFileUrl(filename) {
 // };
 
 userAddressInput.onchange = function () {
-  var userAddress = document.getElementById("address-input").value;
+  userAddress = document.getElementById("address-input").value;
   codeAddress(userAddress);
 };
+
+// userDefectInput.onchange = function () {
+//   var userDefect = userDefectInput.value;
+// };
 
 // When the user clicks on (x) button, close the pop up window
 buttonCloseForm.onclick = function () {
