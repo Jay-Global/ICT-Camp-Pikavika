@@ -11,32 +11,29 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// let lat, long
 let lat, long, address, value, email;
 
-// function sendData() {
 document.getElementById("button-send").onclick = () => {
   //Check that all required fields are filled
-  //By default: all required fields are filled
-  let requiredFieldsEmpty = false;
   //By default: alert message is empty
   let alertMessage = "";
   //Check if address input field is empty
-  if (currentAddressInput.value == null || currentAddressInput.value == "") {
-    requiredFieldsEmpty = true;
-    alertMessage = alertMessage + " Osoite puuttuu! ";
+  //"currentAddressInput.value" returns TRUE if value is NOT empty/null/undefined
+  if (!currentAddressInput.value) {
+    //If field is empty -> set alert message with a line feed
+    alertMessage = "Osoite puuttuu! \n";
   }
   //Check if defect input field is empty
-  if (currentDefectInput.value == null || currentDefectInput.value == "") {
-    requiredFieldsEmpty = true;
-    alertMessage = alertMessage + " Vikailmoituksen syy puuttuu! ";
+  if (!currentDefectInput.value) {
+    //If field is empty -> set new alert message
+    //alertMessage = alertMessage + "Vikailmoituksen syy puuttuu!" can be written as below
+    alertMessage += "Vikailmoituksen syy puuttuu!";
   }
-  //Alert message is shown if any required field is empty
-  if (requiredFieldsEmpty == true) {
+  //Check if alert message was set -> show message
+  if (alertMessage) {
     alert(alertMessage);
-  }
-
-  if (requiredFieldsEmpty == false) {
+    //If alert message was empty -> send data
+  } else {
     lat = currentLatLng.lat();
     long = currentLatLng.lng();
     address = document.getElementById("address-input").value;
