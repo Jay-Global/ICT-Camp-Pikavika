@@ -41,7 +41,7 @@ document.getElementById("button-send").onclick = () => {
 
   modalForm.style.display = "none";
   modalThankYou.style.display = "block";
-  placeMarkerAndPanTo(currentLatLng, map);
+  addMarkerAndPanTo(currentLatLng, address, map, value);
 
   //Send pictures
   //checks if files are selected

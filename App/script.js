@@ -1,5 +1,6 @@
 const currentLatitude = document.getElementById("current-latitude");
 const currentLongitude = document.getElementById("current-longitude");
+const currentAddressInput = document.getElementById("address-input");
 
 let userAddress;
 
@@ -29,6 +30,7 @@ function initMap() {
     currentLatLng = e.latLng;
     currentLatitude.textContent = currentLatLng.lat();
     currentLongitude.textContent = currentLatLng.lng();
+    getAddress(currentLatLng);
     modalForm.style.display = "block";
   });
 }
@@ -57,8 +59,19 @@ function codeAddress(userAddress) {
   });
 }
 
-// userAddress = document.getElementById("address-input").value;
-// codeAddress(userAddress);
+//Get street address after clicked the map
+function getAddress(mapCoordinates) {
+  geocoder.geocode({ location: mapCoordinates }, (results, status) => {
+    if (status == google.maps.GeocoderStatus.OK) {
+      //Display response in the console
+      console.log(results[0].formatted_address);
+      //Show address in address input field
+      currentAddressInput.value = results[0].formatted_address;
+    } else {
+      alert("Geocode error: " + status);
+    }
+  });
+}
 
 // Get the form (pop up window)
 var modalForm = document.getElementById("modal-form");
@@ -177,15 +190,35 @@ buttonCloseHelp.onclick = function () {
   modalHelp.style.display = "none";
 };
 
-//Create a new marker and center
-function placeMarkerAndPanTo(latLng, map) {
-  new google.maps.Marker({
+// //Create a new marker and center
+// function placeMarkerAndPanTo(latLng, map) {
+//   new google.maps.Marker({
+//     position: latLng,
+//     map: map,
+//   });
+//   map.panTo(latLng);
+// }
+
+//Add a new marker
+function addMarkerAndPanTo(latLng, markerAddress, map, message) {
+  //Create a new marker
+  var marker = new google.maps.Marker({
     position: latLng,
+    title: markerAddress,
     map: map,
+  });
+  //Create a info window attached to the marker
+  var infoWindow = new google.maps.InfoWindow({
+    content: message,
+  });
+  //When user clicks the marker info window will open
+  google.maps.event.addListener(marker, "click", function () {
+    infoWindow.open(map, marker);
   });
   map.panTo(latLng);
 }
 
+//Add a new marker without pan
 function addMarkerAndInfoWindow(latLng, markerAddress, map, message) {
   //Create a new marker
   var marker = new google.maps.Marker({
