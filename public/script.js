@@ -1,5 +1,7 @@
 const currentLatitude = document.getElementById("current-latitude");
 const currentLongitude = document.getElementById("current-longitude");
+const currentAddressInput = document.getElementById("address-input");
+const currentDefectInput = document.getElementById("defect-input");
 
 let userAddress;
 
@@ -29,31 +31,49 @@ function initMap() {
     currentLatLng = e.latLng;
     currentLatitude.textContent = currentLatLng.lat();
     currentLongitude.textContent = currentLatLng.lng();
+    getAddress(currentLatLng);
+    currentDefectInput.value = null;
     modalForm.style.display = "block";
   });
 }
+// // var coordsLat;
+// // var coordsLng;
+// let coords = [];
 
 //Get coordinates from the API
 function codeAddress(userAddress) {
-  geocoder.geocode({ userAddress: userAddress }, (results, status) => {
+  geocoder.geocode({ address: userAddress }, (results, status) => {
     if (status == google.maps.GeocoderStatus.OK) {
       //center the map over the result
       map.setCenter(results[0].geometry.location);
       //Display response in the console
       console.log(results);
-      //place a marker at the location
-      // var marker = new google.maps.Marker({
-      //   map: map,
-      //   position: results[0].geometry.location,
-      // });
+      //Get latitude and longitude from the results
+      currentLatitude.textContent = results[0].geometry.location.lat();
+      currentLongitude.textContent = results[0].geometry.location.lng();
+      currentLatLng = new google.maps.LatLng(
+        results[0].geometry.location.lat(),
+        results[0].geometry.location.lng()
+      );
     } else {
       alert("Geocode error: " + status);
     }
   });
 }
 
-// userAddress = document.getElementById("address-input").value;
-// codeAddress(userAddress);
+//Get street address after clicked the map
+function getAddress(mapCoordinates) {
+  geocoder.geocode({ location: mapCoordinates }, (results, status) => {
+    if (status == google.maps.GeocoderStatus.OK) {
+      //Display response in the console
+      console.log(results[0].formatted_address);
+      //Show address in address input field
+      currentAddressInput.value = results[0].formatted_address;
+    } else {
+      alert("Geocode error: " + status);
+    }
+  });
+}
 
 // Get the form (pop up window)
 var modalForm = document.getElementById("modal-form");
@@ -64,24 +84,60 @@ var buttonOpenForm = document.getElementById("button-open-form");
 // Get the button that closes the pop up window
 var buttonCloseForm = document.getElementsByClassName("button-modal-close")[0];
 
-//Get the address input field
+//Get the address input and defect input fields
 var userAddressInput = document.getElementById("address-input");
+// var userDefectInput = document.getElementsById("defect-input");
 
 // When the user clicks on the button, open the form in a pop up window
 buttonOpenForm.onclick = function () {
   // currentLatitude.textContent = "";
   // currentLongitude.textContent = "";
+  currentLatitude.textContent = "";
+  currentLongitude.textContent = "";
+  currentAddressInput.value = null;
+  currentDefectInput.value = null;
   modalForm.style.display = "block";
 };
+
+//Upload pictures
+var files = [];
+document.getElementById("files").addEventListener("change", function (e) {
+  files = e.target.files;
+  for (let i = 0; i < files.length; i++) {
+    console.log(files[i]);
+  }
+});
+
+function getFileUrl(filename) {
+  //create a storage reference
+  var storage = firebase.storage().ref(filename);
+
+  //get file url
+  storage
+    .getDownloadURL()
+    .then(function (url) {
+      console.log(url);
+    })
+    .catch(function (error) {
+      console.log("error encountered");
+    });
+}
 
 // document.getElementById("button-open-defects").onclick = () => {
 //   queryFirebaseData();
 // };
 
+//When the address input field changes
 userAddressInput.onchange = function () {
-  userAddress = document.getElementById("address-input").value;
+  //Get the value from the user in "address-input"
+  userAddress = currentAddressInput.value;
+  //Use codeAddrsss function to get the coordinates
   codeAddress(userAddress);
 };
+
+// userDefectInput.onchange = function () {
+//   var userDefect = userDefectInput.value;
+// };
 
 // When the user clicks on (x) button, close the pop up window
 buttonCloseForm.onclick = function () {
@@ -123,13 +179,14 @@ var buttonCloseHelp = document.getElementsByClassName("button-modal-close")[2];
 
 // When the user clicks on the button, open the help pop up window
 buttonOpenHelp.onclick = function () {
-  //pop-up window open
+  // Pop-up window open
   modalHelp.style.display = "block";
   modalHelp.addEventListener(
     "click",
     function (event) {
-      //user clicks outside window -> close
-      if (!event.target.closest("modal-help")) {
+      // User clicks outside window -> close
+      // "Closest" returns modal-content-ohje and all its child elements (e.g. modal-header)
+      if (!event.target.closest(".modal-content-ohje")) {
         modalHelp.style.display = "none";
       }
     },
@@ -142,15 +199,35 @@ buttonCloseHelp.onclick = function () {
   modalHelp.style.display = "none";
 };
 
-//Create a new marker and center
-function placeMarkerAndPanTo(latLng, map) {
-  new google.maps.Marker({
+// //Create a new marker and center
+// function placeMarkerAndPanTo(latLng, map) {
+//   new google.maps.Marker({
+//     position: latLng,
+//     map: map,
+//   });
+//   map.panTo(latLng);
+// }
+
+//Add a new marker
+function addMarkerAndPanTo(latLng, markerAddress, map, message) {
+  //Create a new marker
+  var marker = new google.maps.Marker({
     position: latLng,
+    title: markerAddress,
     map: map,
+  });
+  //Create a info window attached to the marker
+  var infoWindow = new google.maps.InfoWindow({
+    content: message,
+  });
+  //When user clicks the marker info window will open
+  google.maps.event.addListener(marker, "click", function () {
+    infoWindow.open(map, marker);
   });
   map.panTo(latLng);
 }
 
+//Add a new marker without pan
 function addMarkerAndInfoWindow(latLng, markerAddress, map, message) {
   //Create a new marker
   var marker = new google.maps.Marker({
@@ -167,3 +244,17 @@ function addMarkerAndInfoWindow(latLng, markerAddress, map, message) {
     infoWindow.open(map, marker);
   });
 }
+
+// //Check that all input fields are filled
+// function checkAllRequiredFields() {
+//   let addressField = currentAddressInput.value;
+//   let defectField = currentDefectInput.value;
+//   if (
+//     (addressField == null || addressField == "",
+//     defectField == null || defectField == "")
+//   ) {
+//     return false;
+//   } else {
+//     return true;
+//   }
+// }
