@@ -6,25 +6,27 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PikaVika</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
+  <link rel="stylesheet" href="styles.css" />
+
 </head>
 
 <body>
   <header class="main-header">
-    <h1>PIKAVIKA</h1>
-    <div class="buttons">
-      <button type="button" id="button-open-help" class="button1">
-        Ohje
-      </button>
-      <button type="button" id="button-open-form" class="button1">
-        Tee vikailmoitus
-      </button>
-      <!-- <button type="button" id="button-open-defects" class="button1">
-          Näytä tallennetut vikailmoitukset
-        </button> -->
+    <div class="container">
+      <h1>PIKAVIKA</h1>
+      <div class="buttons">
+        <button type="button" id="button-open-help" class="button1">
+          Ohje
+        </button>
+        <button type="button" id="button-open-form" class="button1">
+          Tee vikailmoitus
+        </button>
+        <!-- <button type="button" id="button-open-defects" class="button1">
+            Näytä tallennetut vikailmoitukset
+          </button> -->
+      </div>
+      <ul id="defects-list"></ul>
     </div>
-    <ul id="defects-list"></ul>
   </header>
 
   <!-- The form -->
@@ -39,16 +41,16 @@
       <p id="address-from-coordinates"></p>
       <p id="current-latitude"></p>
       <p id="current-longitude"></p>
-      <input type="text" class="textField" id="address-input" minlength="1" maxlength="300" />
+      <input type="text" class="textField" id="address-input" minlength="1" maxlength="300" placeholder="Kauppakatu 1, 33100 Tampere"/>
 
       <p><strong>Vikailmoituksen syy</strong></p>
       <textarea type="text" class="textField" id="defect-input" minlength="1" maxlength="1000" rows="4"
-        required></textarea>
+        required placeholder="Kuvaile lyhyesti millaista vikaa ilmoituksesi koskee.."></textarea>
 
       <p>
         <strong>Sähköposti</strong> (Mikäli haluat sinuun otettavan yhteyttä)
       </p>
-      <input type="text" class="textField" id="email-input" maxlength="100" />
+      <input type="text" class="textField" id="email-input" maxlength="100" placeholder="matti.meikäläinen@gmail.com" />
       <div>
         Lisää kuva<br />
         <input type="file" id="files" multiple /><br /><br />
@@ -80,7 +82,11 @@
         <h3>Ohje</h3>
         <button type="button" class="button-modal-close">X</button>
       </div>
-      <p>Täytä lomake</p>
+      <p>"Pikavika sovellus</p> 
+      <p>on yksinkertainen tapa</p>
+      <p>ilmoittaa alueellasi </p> 
+      <p>ilmenneestä ongelmasta."</p>
+      
       <p>Klikkaa "lähetä"</p>
     </div>
   </div>
